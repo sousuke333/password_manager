@@ -4,20 +4,20 @@
 
 echo "パスワードマネージャーへようこそ！"
 
-echo "サービス名を入力してください："
+echo -n "サービス名を入力してください："
 
-# サービス名入力の受け取り
+read service_name
 
-echo "ユーザー名を入力してください："
+echo -n "ユーザー名を入力してください："
 
-# ユーザー名入力の受け取り
+read user_name
 
-echo "パスワードを入力してください："
+echo -n "パスワードを入力してください："
 
-# パスワード入力の受け取り
+read password
 # 入力が完了したら
 
-# 標準出力に"サービス名、ユーザー名、パスワード"の形式で渡す
+echo "$service_name:$user_name:$password"
 # 標準出力をファイルに変更
 echo "Thank you!"
 
