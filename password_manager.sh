@@ -15,9 +15,7 @@ read user_name
 echo -n "パスワードを入力してください："
 
 read password
-# 入力が完了したら
 
-echo "$service_name:$user_name:$password"
-# 標準出力をファイルに変更
+echo "$service_name:$user_name:$password" >> ./data.txt
 echo "Thank you!"
 
