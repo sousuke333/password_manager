@@ -40,16 +40,17 @@ while :; do
   "Get Password")
     echo -n "サービス名を入力してください："
     read search_name
-    result=$(grep "^$search_name:" ./data.txt)
-    if [ -n "$result" ]; then
-      echo $result
-      echo "サービス名：hoge"
-      echo "ユーザー名：fuga"
-      echo "パスワード：piyo"
+    if [ -n "$(grep "^$search_name:" ./data.txt)" ]; then
+      grep "^$search_name:" ./data.txt | while read line; do
+        echo $line
+        # 取得結果をそれぞれサービス名、ユーザ名、パスワードでバラシて表示したい
+        echo "サービス名：hoge"
+        echo "ユーザー名：fuga"
+        echo "パスワード：piyo"
+      done
     else
       echo "そのサービスは登録されていません。"
     fi
-    # 取得結果をそれぞれサービス名、ユーザ名、パスワードでバラシて表示したい
     ;;
   "Exit")
     echo "Thank you!"
