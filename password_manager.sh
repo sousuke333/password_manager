@@ -27,11 +27,9 @@ register_password() {
 }
 
 # 要件整理
-# 入力に対してのループ処理
 # パスワード照会のロジック
 
 echo "パスワードマネージャーへようこそ！"
-# 入力が"Add Password,Get Password,Exit"以外なら再度入力を求める、ケースでループがよさそう
 while :; do
   echo -n "次の選択肢から入力してください(Add Password/Get Password/Exit)："
   read action
@@ -39,13 +37,20 @@ while :; do
   "Add Password")
     register_password
     ;;
-  "Get Password") echo "Get Passwordが入力されました" ;;
-    # Get Passwordが入力されたら
-    # echo "サービス名を入力してください："
-    # サービス名の入力を求める
-    # grepでサービス名をdata.txtから取得して表示
-    # なければ"そのサービスは登録されていません。"とし最初の選択肢に
-    # echo "そのサービスは登録されていません。"
+  "Get Password")
+    echo -n "サービス名を入力してください："
+    read search_name
+    result=$(grep "^$search_name:" ./data.txt)
+    if [ -n "$result" ]; then
+      echo $result
+      echo "サービス名：hoge"
+      echo "ユーザー名：fuga"
+      echo "パスワード：piyo"
+    else
+      echo "そのサービスは登録されていません。"
+    fi
+    # 取得結果をそれぞれサービス名、ユーザ名、パスワードでバラシて表示したい
+    ;;
   "Exit")
     echo "Thank you!"
     break
