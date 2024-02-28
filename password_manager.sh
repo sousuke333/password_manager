@@ -46,7 +46,7 @@ while :; do
     # なければ"そのサービスは登録されていません。"とし最初の選択肢に
     # echo "そのサービスは登録されていません。"
   "Exit")
-    echo "Exitが入力されました"
+    echo "Thank you!"
     # Exitが入力されたら"Thank you!"と表示しプログラム終了
     break
     ;;
