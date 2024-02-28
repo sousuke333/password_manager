@@ -22,7 +22,8 @@ register_password() {
   done
 
   echo "$service_name:$user_name:$password" >>./data.txt
-  echo "Thank you!"
+  echo $'\n'
+  echo "パスワードの追加は成功しました。"
 }
 
 # 要件整理
@@ -35,9 +36,9 @@ while :; do
   echo -n "次の選択肢から入力してください(Add Password/Get Password/Exit)："
   read action
   case $action in
-  "Add Password") echo "Add Passwordが入力されました" ;;
-    # Add Passwordが入力されたらデータ登録の処理
-    # register_password
+  "Add Password")
+    register_password
+    ;;
   "Get Password") echo "Get Passwordが入力されました" ;;
     # Get Passwordが入力されたら
     # echo "サービス名を入力してください："
@@ -47,7 +48,6 @@ while :; do
     # echo "そのサービスは登録されていません。"
   "Exit")
     echo "Thank you!"
-    # Exitが入力されたら"Thank you!"と表示しプログラム終了
     break
     ;;
   *)
