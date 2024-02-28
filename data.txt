@@ -9,3 +9,5 @@ hoge:hoge2:hoge2
 huga:huga:huga
 test:line10:item10piyo:piyo:piyo
 piyo:piyo:piyo
+sou:sou:sou
+add:add:add

@@ -26,8 +26,25 @@ register_password() {
   echo "パスワードの追加は成功しました。"
 }
 
-# 要件整理
-# パスワード照会のロジック
+registration_information_inquiry() {
+  echo -n "サービス名を入力してください："
+  read search_name
+  if [ -n "$(grep "^$search_name:" ./data.txt)" ]; then
+    grep "^$search_name:" ./data.txt | while read line; do
+      echo -n "サービス名："
+      echo $line | awk -F':' '{print $1}'
+
+      echo -n "ユーザー名："
+      echo $line | awk -F':' '{print $2}'
+
+      echo -n "パスワード："
+      echo $line | awk -F':' '{print $3}'
+      echo $'\n'
+    done
+  else
+    echo "そのサービスは登録されていません。"
+  fi
+}
 
 echo "パスワードマネージャーへようこそ！"
 while :; do
@@ -38,23 +55,7 @@ while :; do
     register_password
     ;;
   "Get Password")
-    echo -n "サービス名を入力してください："
-    read search_name
-    if [ -n "$(grep "^$search_name:" ./data.txt)" ]; then
-      grep "^$search_name:" ./data.txt | while read line; do
-        echo -n "サービス名："
-        echo $line | awk -F':' '{print $1}'
-
-        echo -n "ユーザー名："
-        echo $line | awk -F':' '{print $2}'
-
-        echo -n "パスワード："
-        echo $line | awk -F':' '{print $3}'
-        echo $'\n'
-      done
-    else
-      echo "そのサービスは登録されていません。"
-    fi
+    registration_information_inquiry
     ;;
   "Exit")
     echo "Thank you!"
