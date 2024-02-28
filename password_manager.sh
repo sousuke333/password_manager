@@ -42,11 +42,15 @@ while :; do
     read search_name
     if [ -n "$(grep "^$search_name:" ./data.txt)" ]; then
       grep "^$search_name:" ./data.txt | while read line; do
-        echo $line
-        # 取得結果をそれぞれサービス名、ユーザ名、パスワードでバラシて表示したい
-        echo "サービス名：hoge"
-        echo "ユーザー名：fuga"
-        echo "パスワード：piyo"
+        echo -n "サービス名："
+        echo $line | awk -F':' '{print $1}'
+
+        echo -n "ユーザー名："
+        echo $line | awk -F':' '{print $2}'
+
+        echo -n "パスワード："
+        echo $line | awk -F':' '{print $3}'
+        echo $'\n'
       done
     else
       echo "そのサービスは登録されていません。"
