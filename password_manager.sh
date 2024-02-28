@@ -1,7 +1,4 @@
 #!/bin/bash
-
-echo "パスワードマネージャーへようこそ！"
-
 register_password () {
 echo -n "サービス名を入力してください："
 read service_name
@@ -33,13 +30,23 @@ echo "Thank you!"
 
 
 # 要件整理
-# welcomeメッセージの追加、選択肢を出す
-# 入力が"Add Password,Get Password,Exit"以外なら再度入力を求める
+# 入力に対してのループ処理
+# パスワード照会のロジック
+
+
+echo "パスワードマネージャーへようこそ！"
+# 入力が"Add Password,Get Password,Exit"以外なら再度入力を求める、ケースでループがよさそう
+echo "次の選択肢から入力してください(Add Password/Get Password/Exit)："
+
 # Add Passwordが入力されたらデータ登録の処理
 register_password
+
 # Get Passwordが入力されたら
+echo "サービス名を入力してください："
 # サービス名の入力を求める
-# data.txtから検索してヒットしたら表示
+# grepでサービス名をdata.txtから取得して表示
+
 # なければ"そのサービスは登録されていません。"とし最初の選択肢に
+echo "そのサービスは登録されていません。"
 # Exitが入力されたら"Thank you!"と表示しプログラム終了
 
