@@ -36,24 +36,22 @@ while :; do
   read action
   case $action in
   "Add Password") echo "Add Passwordが入力されました" ;;
+    # Add Passwordが入力されたらデータ登録の処理
+    # register_password
   "Get Password") echo "Get Passwordが入力されました" ;;
+    # Get Passwordが入力されたら
+    # echo "サービス名を入力してください："
+    # サービス名の入力を求める
+    # grepでサービス名をdata.txtから取得して表示
+    # なければ"そのサービスは登録されていません。"とし最初の選択肢に
+    # echo "そのサービスは登録されていません。"
   "Exit")
     echo "Exitが入力されました"
+    # Exitが入力されたら"Thank you!"と表示しプログラム終了
     break
     ;;
-  "")
-    echo "選択肢のいずれかを入力してください"
+  *)
+    echo "入力が間違えています。Add Password/Get Password/Exit から入力してください。"
     ;;
   esac
 done
-# Add Passwordが入力されたらデータ登録の処理
-# register_password
-
-# Get Passwordが入力されたら
-# echo "サービス名を入力してください："
-# サービス名の入力を求める
-# grepでサービス名をdata.txtから取得して表示
-
-# なければ"そのサービスは登録されていません。"とし最初の選択肢に
-# echo "そのサービスは登録されていません。"
-# Exitが入力されたら"Thank you!"と表示しプログラム終了
