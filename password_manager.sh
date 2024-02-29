@@ -1,4 +1,7 @@
 #!/bin/bash
+# 登録時にファイルを暗号化
+# 情報照会時にファイルを復号化
+
 register_password() {
   echo -n "サービス名を入力してください："
   read service_name
