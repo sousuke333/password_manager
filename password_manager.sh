@@ -23,8 +23,11 @@ register_password() {
     echo -n "空文字は入力できません,パスワードを再度入力してください："
     read password
   done
-
+  printf "U8sLNtiF" | gpg --passphrase-fd 0 --decrypt --batch --no-secmem-warning --quiet ./data.txt.gpg >/dev/null
+  # rm ./data.txt.gpg
   echo "$service_name:$user_name:$password" >>./data.txt
+  # gpg --passphrase "U8sLNtiF" -c --s2k-cipher-algo AES256 --s2k-digest-algo SHA512 --s2k-count 65536 ./data.txt
+  # rm ./data.txt
   echo $'\n'
   echo "パスワードの追加は成功しました。"
 }
@@ -32,6 +35,7 @@ register_password() {
 registration_information_inquiry() {
   echo -n "サービス名を入力してください："
   read search_name
+  rm ./data.txt.gpg
   if [ -n "$(grep "^$search_name:" ./data.txt)" ]; then
     grep "^$search_name:" ./data.txt | while read line; do
       echo -n "サービス名："
