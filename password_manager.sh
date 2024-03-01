@@ -2,6 +2,20 @@
 # 登録時にファイルを暗号化
 # 情報照会時にファイルを復号化
 
+encryption() {
+  # 暗号化のコード
+  printf "U8sLNtiF" |  gpg --passphrase-fd 0 --symmetric --batch --s2k-cipher-algo AES256 --s2k-digest-algo SHA512 --s2k-count 65536 --no-symkey-cache ./data.txt >/dev/null
+  # 暗号化されたら元ファイルを残さない
+  rm ./data.txt
+
+}
+decryption(){
+  # 復号化のコード
+  printf "U8sLNtiF" | gpg --passphrase-fd 0 --decrypt --batch --no-secmem-warning --quiet ./data.txt.gpg >/dev/null
+  # 復号化元を削除
+  rm ./data.txt.gpg
+
+}
 register_password() {
   echo -n "サービス名を入力してください："
   read service_name
@@ -23,15 +37,10 @@ register_password() {
     echo -n "空文字は入力できません,パスワードを再度入力してください："
     read password
   done
-  # 復号化のコード
-  printf "U8sLNtiF" | gpg --passphrase-fd 0 --decrypt --batch --no-secmem-warning --quiet ./data.txt.gpg >/dev/null
-  # 復号化元を削除
-  rm ./data.txt.gpg
+  
+  decryption
   echo "$service_name:$user_name:$password" >>./data.txt
-  # 暗号化のコード
-  printf "U8sLNtiF" |  gpg --passphrase-fd 0 --symmetric --batch --s2k-cipher-algo AES256 --s2k-digest-algo SHA512 --s2k-count 65536 --no-symkey-cache ./data.txt >/dev/null
-  # 暗号化されたら元ファイルを残さない
-  rm ./data.txt
+  encryption
   echo $'\n'
   echo "パスワードの追加は成功しました。"
 }
