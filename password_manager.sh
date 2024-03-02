@@ -1,7 +1,4 @@
 #!/bin/bash
-# 登録時にファイルを暗号化
-# 情報照会時にファイルを復号化
-
 encryption() {
   printf "U8sLNtiF" | gpg --passphrase-fd 0 --symmetric --batch --s2k-cipher-algo AES256 --s2k-digest-algo SHA512 --s2k-count 65536 --no-symkey-cache ./data.txt >/dev/null
 }
@@ -46,7 +43,7 @@ register_password() {
 
 registration_information_inquiry() {
   echo -n "サービス名を入力してください："
-  # decryption
+  decryption
   read search_name
   if [ -n "$(grep "^$search_name:" ./data.txt)" ]; then
     grep "^$search_name:" ./data.txt | while read line; do
@@ -63,7 +60,7 @@ registration_information_inquiry() {
   else
     echo "そのサービスは登録されていません。"
   fi
-  # rm ./data.txt
+  rm ./data.txt
 }
 
 echo "パスワードマネージャーへようこそ！"
