@@ -3,16 +3,12 @@
 # 情報照会時にファイルを復号化
 
 encryption() {
-  # 暗号化のコード
   printf "U8sLNtiF" |  gpg --passphrase-fd 0 --symmetric --batch --s2k-cipher-algo AES256 --s2k-digest-algo SHA512 --s2k-count 65536 --no-symkey-cache ./data.txt >/dev/null
-  # 暗号化されたら元ファイルを残さない
   rm ./data.txt
 
 }
 decryption(){
-  # 復号化のコード
-  printf "U8sLNtiF" | gpg --passphrase-fd 0 --decrypt --batch --no-secmem-warning --quiet ./data.txt.gpg >/dev/null
-  # 復号化元を削除
+  printf "U8sLNtiF" | gpg --passphrase-fd 0 --decrypt --batch --no-secmem-warning --quiet data.txt.gpg > ./data.txt
   rm ./data.txt.gpg
 
 }
@@ -37,7 +33,6 @@ register_password() {
     echo -n "空文字は入力できません,パスワードを再度入力してください："
     read password
   done
-  
   decryption
   echo "$service_name:$user_name:$password" >>./data.txt
   encryption
@@ -47,8 +42,12 @@ register_password() {
 
 registration_information_inquiry() {
   echo -n "サービス名を入力してください："
+  # ファイルの復号化に失敗しているのか検索がみつからない
+  printf "U8sLNtiF" | gpg --passphrase-fd 0 --decrypt --batch --no-secmem-warning --quiet data.txt.gpg > ./data.txt
   read search_name
-  rm ./data.txt.gpg
+  # decryption
+
+  # rm ./data.txt.gpg
   if [ -n "$(grep "^$search_name:" ./data.txt)" ]; then
     grep "^$search_name:" ./data.txt | while read line; do
       echo -n "サービス名："
@@ -64,6 +63,7 @@ registration_information_inquiry() {
   else
     echo "そのサービスは登録されていません。"
   fi
+  encryption
 }
 
 echo "パスワードマネージャーへようこそ！"
